@@ -1,0 +1,18 @@
+Code Review: AI review confirmed that our HTML was properly nested and used semantic
+elements correctly. No repeating div wrappers were identified, so the
+structure was left unchanged.
+
+Accessibility: AI feedback confirmed that Bootstrap’s default color scheme meets WCAG
+contrast requirements. We also verified that all images include alt text
+and that the navigation toggle includes proper aria attributes.
+
+Bootstrap: AI clarified that the Bootstrap 5 classes img-fluid and rounded-circle
+should be used together to create responsive circular images. We also
+learned that the source image should be square to prevent unwanted
+cropping.
+
+Responsive advisor: We asked AI to review our responsive navigation behavior at the 768px
+breakpoint. AI explained that the navbar-expand-md class controls when
+the menu collapses and that Bootstrap’s JavaScript bundle must be included
+for the toggle to function. After verifying our setup, we confirmed that
+the menu collapses and expands correctly at the intended breakpoint
