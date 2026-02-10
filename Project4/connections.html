@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connections - 3 Day Class Edition</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      color-scheme: light;
+      --bg: #f4efe6;
+      --bg-2: #ebe2d4;
+      --ink: #1f1b17;
+      --muted: #5c534a;
+      --card: #fffaf2;
+      --accent: #2f6f66;
+      --accent-2: #d07a2a;
+      --accent-3: #40587b;
+      --accent-4: #a24d5e;
+      --shadow: 0 16px 40px rgba(36, 26, 16, 0.12);
+      --radius: 18px;
+      --grid-gap: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.85), transparent 55%),
+        linear-gradient(160deg, var(--bg), var(--bg-2));
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 36px 20px 48px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.5;
+    }
+
+    .board {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .topline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta span {
+      font-weight: 600;
+    }
+
+    .meta .date {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .progress .pill {
+      background: rgba(47, 111, 102, 0.12);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .solved {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .group-card {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(31, 27, 23, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 88px;
+    }
+
+    .group-title {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .group-words {
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .word {
+      padding: 16px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(31, 27, 23, 0.18);
+      background: #fff;
+      color: var(--ink);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      box-shadow: 0 8px 18px rgba(31, 27, 23, 0.08);
+    }
+
+    .word:hover {
+      transform: translateY(-2px);
+    }
+
+    .word.selected {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 14px 24px rgba(47, 111, 102, 0.25);
+    }
+
+    .word.disabled {
+      background: #f0ece6;
+      border-color: transparent;
+      color: #8d8277;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.control {
+      border: 1px solid rgba(31, 27, 23, 0.18);
+      background: #fff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    button.control:hover {
+      transform: translateY(-1px);
+      background: #f7f2ea;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    button.primary:hover {
+      background: #2a6058;
+    }
+
+    button.control:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .message {
+      min-height: 22px;
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 720px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .board {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Connections: Class Edition</h1>
+      <p>
+        Find the four hidden groups. Select exactly four words and submit.
+        Solve all four groups to advance to the next day.
+      </p>
+    </header>
+
+    <section class="board" aria-live="polite">
+      <div class="topline">
+        <div class="meta">
+          <span id="dayLabel">Day 1 of 3</span>
+          <span id="dateLabel" class="date">February 11, 2026</span>
+        </div>
+        <div class="progress">
+          <span id="groupsLeft">4 groups left</span>
+          <span class="pill" id="dayStatus">In Progress</span>
+        </div>
+      </div>
+
+      <div id="solved" class="solved" aria-live="polite"></div>
+
+      <div id="grid" class="grid" role="list"></div>
+
+      <div class="controls">
+        <button class="control" id="shuffleBtn" type="button">Shuffle</button>
+        <button class="control" id="clearBtn" type="button">Clear</button>
+        <button class="control primary" id="submitBtn" type="button">Submit</button>
+        <button class="control" id="restartBtn" type="button">Restart 3-Day Set</button>
+      </div>
+
+      <div id="message" class="message" role="status"></div>
+    </section>
+
+    <footer>
+      
+    </footer>
+  </div>
+
+  <script>
+    const DAYS = [
+      {
+        date: "2026-02-11",
+        groups: [
+          { name: "Weather Words", words: ["BREEZE", "GUST", "HAIL", "MIST"] },
+          { name: "Coffee Drinks", words: ["LATTE", "MOCHA", "ESPRESSO", "CAPPUCCINO"] },
+          { name: "Storage Items", words: ["BOX", "CRATE", "BIN", "DRAWER"] },
+          { name: "Dance Moves", words: ["TWIST", "SWAY", "STEP", "SPIN"] }
+        ]
+      },
+      {
+        date: "2026-02-12",
+        groups: [
+          { name: "Programming Verbs", words: ["COMPILE", "RUN", "DEBUG", "BUILD"] },
+          { name: "School Supplies", words: ["PENCIL", "ERASER", "RULER", "MARKER"] },
+          { name: "Famous Peaks", words: ["EVEREST", "DENALI", "FUJI", "KILIMANJARO"] },
+          { name: "Breakfast Foods", words: ["OATMEAL", "WAFFLE", "CEREAL", "TOAST"] }
+        ]
+      },
+      {
+        date: "2026-02-13",
+        groups: [
+          { name: "Ocean Life", words: ["SHARK", "OCTOPUS", "SEAL", "CORAL"] },
+          { name: "Board Games", words: ["CHESS", "CHECKERS", "MONOPOLY", "SCRABBLE"] },
+          { name: "Fasteners", words: ["NAIL", "SCREW", "BOLT", "RIVET"] },
+          { name: "Directions", words: ["NORTH", "SOUTH", "EAST", "WEST"] }
+        ]
+      }
+    ];
+
+    const HARD_CODED_DATE = "2026-02-11";
+    const STORAGE_KEY = "connections-day-index";
+    const GROUP_COLORS = [
+      "#d9ebe8",
+      "#f6e4d4",
+      "#dbe3f2",
+      "#f2dfe7"
+    ];
+
+    const dayLabel = document.getElementById("dayLabel");
+    const dateLabel = document.getElementById("dateLabel");
+    const groupsLeft = document.getElementById("groupsLeft");
+    const dayStatus = document.getElementById("dayStatus");
+    const solvedEl = document.getElementById("solved");
+    const gridEl = document.getElementById("grid");
+    const messageEl = document.getElementById("message");
+
+    const shuffleBtn = document.getElementById("shuffleBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const state = {
+      dayIndex: 0,
+      gridWords: [],
+      selected: new Set(),
+      solved: new Set(),
+      isComplete: false
+    };
+
+    function formatDate(dateString) {
+      const [year, month, day] = dateString.split("-");
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      const monthName = monthNames[Number(month) - 1];
+      return `${monthName} ${Number(day)}, ${year}`;
+    }
+
+    function getInitialDayIndex() {
+      const stored = Number(localStorage.getItem(STORAGE_KEY));
+      if (Number.isInteger(stored) && stored >= 0 && stored < DAYS.length) {
+        return stored;
+      }
+      const dueIndex = DAYS.findIndex(day => day.date === HARD_CODED_DATE);
+      return dueIndex >= 0 ? dueIndex : 0;
+    }
+
+    function saveDayIndex(index) {
+      localStorage.setItem(STORAGE_KEY, String(index));
+    }
+
+    function buildDay(index) {
+      const day = DAYS[index];
+      state.dayIndex = index;
+      state.gridWords = day.groups.flatMap((group, groupIndex) =>
+        group.words.map(word => ({ word, groupIndex }))
+      );
+      shuffle(state.gridWords);
+      state.selected.clear();
+      state.solved.clear();
+      state.isComplete = false;
+      renderAll();
+    }
+
+    function renderAll() {
+      const day = DAYS[state.dayIndex];
+      dayLabel.textContent = `Day ${state.dayIndex + 1} of ${DAYS.length}`;
+      dateLabel.textContent = formatDate(day.date);
+      groupsLeft.textContent = `${day.groups.length - state.solved.size} groups left`;
+      dayStatus.textContent = state.isComplete ? "Complete" : "In Progress";
+      renderSolved();
+      renderGrid();
+      updateControls();
+    }
+
+    function renderSolved() {
+      solvedEl.innerHTML = "";
+      const day = DAYS[state.dayIndex];
+      day.groups.forEach((group, index) => {
+        if (!state.solved.has(index)) return;
+        const card = document.createElement("div");
+        card.className = "group-card";
+        card.style.background = GROUP_COLORS[index % GROUP_COLORS.length];
+        const title = document.createElement("div");
+        title.className = "group-title";
+        title.textContent = group.name;
+        const words = document.createElement("div");
+        words.className = "group-words";
+        words.textContent = group.words.join(" / ");
+        card.append(title, words);
+        solvedEl.appendChild(card);
+      });
+    }
+
+    function renderGrid() {
+      gridEl.innerHTML = "";
+      const fragment = document.createDocumentFragment();
+      state.gridWords.forEach((item) => {
+        if (state.solved.has(item.groupIndex)) return;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "word";
+        button.textContent = item.word;
+        button.dataset.word = item.word;
+        button.addEventListener("click", () => toggleSelect(item.word));
+        if (state.selected.has(item.word)) {
+          button.classList.add("selected");
+        }
+        fragment.appendChild(button);
+      });
+      gridEl.appendChild(fragment);
+    }
+
+    function toggleSelect(word) {
+      if (state.isComplete) return;
+      if (state.selected.has(word)) {
+        state.selected.delete(word);
+        renderGrid();
+        updateControls();
+        return;
+      }
+      if (state.selected.size >= 4) {
+        showMessage("Select only four words.");
+        return;
+      }
+      state.selected.add(word);
+      renderGrid();
+      updateControls();
+    }
+
+    function submitSelection() {
+      if (state.isComplete) return;
+      if (state.selected.size !== 4) {
+        showMessage("Pick exactly four words.");
+        return;
+      }
+      const day = DAYS[state.dayIndex];
+      const selected = state.selected;
+      const matchIndex = day.groups.findIndex((group, index) => {
+        if (state.solved.has(index)) return false;
+        return group.words.every(word => selected.has(word));
+      });
+
+      if (matchIndex === -1) {
+        showMessage("No match. Try a different set.");
+        state.selected.clear();
+        renderGrid();
+        updateControls();
+        return;
+      }
+
+      state.solved.add(matchIndex);
+      state.selected.clear();
+      state.gridWords = state.gridWords.filter(item => item.groupIndex !== matchIndex);
+      showMessage(`Correct: ${day.groups[matchIndex].name}`);
+      if (state.solved.size === day.groups.length) {
+        completeDay();
+        return;
+      }
+      renderAll();
+    }
+
+    function completeDay() {
+      state.isComplete = true;
+      renderAll();
+      showMessage("Day complete! Loading next day...");
+      if (state.dayIndex < DAYS.length - 1) {
+        setTimeout(() => {
+          const nextIndex = state.dayIndex + 1;
+          saveDayIndex(nextIndex);
+          buildDay(nextIndex);
+          showMessage("New day unlocked.");
+        }, 900);
+      } else {
+        dayStatus.textContent = "All Complete";
+        showMessage("All three days complete. Great work!");
+        updateControls();
+      }
+    }
+
+    function shuffleGrid() {
+      if (state.isComplete) return;
+      shuffle(state.gridWords);
+      renderGrid();
+    }
+
+    function clearSelection() {
+      state.selected.clear();
+      renderGrid();
+      updateControls();
+      showMessage("");
+    }
+
+    function restartDays() {
+      localStorage.removeItem(STORAGE_KEY);
+      buildDay(getInitialDayIndex());
+      showMessage("Progress reset.");
+    }
+
+    function updateControls() {
+      const day = DAYS[state.dayIndex];
+      const remaining = day.groups.length - state.solved.size;
+      groupsLeft.textContent = `${remaining} groups left`;
+      submitBtn.disabled = state.selected.size !== 4 || state.isComplete;
+      clearBtn.disabled = state.selected.size === 0 || state.isComplete;
+      shuffleBtn.disabled = state.isComplete;
+    }
+
+    function showMessage(text) {
+      messageEl.textContent = text;
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    shuffleBtn.addEventListener("click", shuffleGrid);
+    clearBtn.addEventListener("click", clearSelection);
+    submitBtn.addEventListener("click", submitSelection);
+    restartBtn.addEventListener("click", restartDays);
+
+    buildDay(getInitialDayIndex());
+  </script>
+</body>
+</html>
