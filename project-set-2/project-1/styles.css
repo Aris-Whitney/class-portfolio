@@ -1,0 +1,105 @@
+/* Body */
+
+body {
+    margin: 0 4em 0 4em;
+    font-family:'Open Sans', sans-serif;
+    font-size:1 rem;
+    background-color: #f9f9f9;
+    color: #29293a;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+
+}
+
+
+/*Headings*/
+
+h1{
+    font-family:'Roboto Slab', serif;
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: #9f2042;
+    margin: 1.5rem 0 0.25rem 0;
+}
+
+h2{
+    font-size: 1rem;
+    font-weight: normal;
+    text-align:center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #29293a
+}
+
+/*Image*/
+
+img{
+    width: 100%;
+    display: block;
+}
+
+
+/*Blockquote*/
+
+blockquote{
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.25rem;
+    background-color: #ececec;
+    padding: 1rem;
+    margin: 2rem 0;
+    border-left: 6px solid #9f2042;
+}
+
+/*Paragraph text*/
+
+p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/*Links*/
+
+a {
+    color: #9f2042;
+    text-decoration:none;
+}
+
+a:visited {
+    color:#9f2042;
+}
+
+/*External links (museum + wikipedia) */
+
+#buttons a {
+    border:1px solid #ec8295;
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+
+}
+
+#buttons a:hover {
+    background-color: #a9a9ba;
+    color: #9f2042;
+}
+
+/*Footer*/
+
+footer{
+    background-color: #29293a;
+    color: #f9f9f9;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+footer a {
+    color:#ec8295;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
