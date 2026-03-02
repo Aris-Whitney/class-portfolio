@@ -1,0 +1,107 @@
+* {
+   box-sizing: border-box;
+}
+
+body {
+   margin: 0 4em;
+   background-color: #f9f9f9;
+   font-family: 'Open Sans', sans-serif;
+   color: #444;
+   line-height: 1.6;
+}
+
+article {
+   background-color: #ffffff;
+   border: 1px solid #ececec;
+   padding: 2rem;
+}
+
+.hero {
+   width: 100%;
+   display: block;
+   border: 1px solid #ececec;
+}
+
+h1 {
+   font-family: 'Roboto Slab', serif;
+   font-size: 2rem;
+   color: #9f2042;
+   text-align: center;
+   text-transform: uppercase;
+   letter-spacing: 0.02em;
+   margin: 1rem 0 0.5rem;
+}
+
+#details {
+   text-align: center;
+   font-size: 0.9rem;
+   color: #666666;
+   margin-bottom: 1.25rem;
+}
+
+p {
+   font-size: 1rem;
+   margin: 1rem 0;
+}
+
+blockquote {
+   font-family: 'Roboto Slab', serif;
+   font-size: 1.25rem;
+   background-color: #ececec;
+   margin: 1.5rem 0;
+   padding: 1rem 1.25rem;
+   color: #333333;
+   border-left: 4px solid #ec8295;
+}
+
+#buttons {
+   text-align: center;
+   margin: 1.5rem 0;
+}
+
+#buttons a {
+   display: inline-block;
+   margin: 0 0.5rem;
+   padding: 0.45rem 1rem;
+   border: 2px solid #ec8295;
+   border-radius: 999px;
+   color: #9f2042;
+   text-decoration: none;
+   font-size: 0.9rem;
+   letter-spacing: 0.02em;
+}
+
+#buttons a:visited {
+   color: #9f2042;
+}
+
+#buttons a:hover {
+   background-color: #a9a9ba;
+   color: #9f2042;
+}
+
+footer {
+   background-color: #29293a;
+   color: #f2f2f2;
+   margin-top: 2rem;
+   padding: 1rem 1.25rem;
+   text-align: center;
+}
+
+footer p {
+   margin: 0.5rem 0;
+   font-size: 0.9rem;
+}
+
+footer a {
+   color: #ec8295;
+   text-decoration: none;
+}
+
+footer a:visited {
+   color: #ec8295;
+}
+
+footer a:hover {
+   color: #ffffff;
+}

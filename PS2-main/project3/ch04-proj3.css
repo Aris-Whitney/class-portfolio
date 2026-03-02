@@ -1,0 +1,160 @@
+* {
+   box-sizing: border-box;
+}
+
+body, section, header, div, p, h1, h2, h3, ul, li, figure, figcaption {
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   font-family: 'Open Sans', sans-serif;
+   box-sizing: border-box;
+   background-color: #F0F4F8;
+   font-weight: 300;
+   color: #222222;
+}
+
+header {
+   background-image: url('images/florence.jpg');
+   background-size: cover;
+   background-position: center;
+   width: 100%;
+   min-height: 500px;
+   color: #ffffff;
+   position: relative;
+}
+
+#topbar {
+   background-color: rgba(81, 39, 155, 0.85);
+   background-image: url('images/logo.svg');
+   background-repeat: no-repeat;
+   background-size: 60px;
+   background-position: 20px 10px;
+   min-height: 80px;
+   padding: 22px 20px 22px 100px;
+}
+
+#topbar ul {
+   list-style: none;
+}
+
+#topbar li {
+   display: inline-block;
+   margin-right: 20px;
+}
+
+#topbar a {
+   color: #ffffff;
+   text-decoration: none;
+   font-weight: 600;
+   font-size: 14px;
+   letter-spacing: 0.04em;
+}
+
+#topbar a:visited {
+   color: #ffffff;
+}
+
+#topbar a:hover {
+   color: #8662C7;
+}
+
+header > div {
+   margin-left: 100px;
+   margin-top: 120px;
+   max-width: 520px;
+}
+
+header > div h2 {
+   font-size: 48px;
+   font-weight: 800;
+   margin-bottom: 10px;
+}
+
+header > div p {
+   font-size: 24px;
+   font-weight: 400;
+   margin-bottom: 18px;
+}
+
+header > div a {
+   display: inline-block;
+   background-color: #8662C7;
+   color: #ffffff;
+   text-decoration: none;
+   padding: 10px 22px;
+   border-radius: 4px;
+   font-weight: 600;
+   letter-spacing: 0.04em;
+   font-size: 14px;
+}
+
+header > div a:visited {
+   color: #ffffff;
+}
+
+header > div a:hover {
+   background-color: #7a57bd;
+}
+
+main {
+   text-align: center;
+   padding: 30px 0 40px;
+}
+
+.card {
+   display: inline-block;
+   width: 300px;
+   margin: 0 10px 20px;
+   background-color: #ffffff;
+   vertical-align: top;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+   width: 100%;
+   display: block;
+}
+
+.card div {
+   padding: 12px 14px 14px;
+   text-align: left;
+}
+
+.card h3 {
+   font-size: 14px;
+   font-weight: 600;
+   margin-bottom: 6px;
+   color: #333333;
+}
+
+.card .description {
+   font-size: 12px;
+   font-weight: 400;
+   color: #555555;
+   margin-bottom: 8px;
+}
+
+.card .social {
+   font-size: 10px;
+   color: #777777;
+}
+
+.card .social .heart,
+.card .social .comment {
+   display: inline-block;
+   background-repeat: no-repeat;
+   background-position: left center;
+   background-size: 12px;
+   padding-left: 18px;
+   margin-right: 10px;
+}
+
+.card .social .heart {
+   background-image: url('images/heart.svg');
+}
+
+.card .social .comment {
+   background-image: url('images/comment.svg');
+}

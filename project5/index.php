@@ -28,7 +28,6 @@
     <button id="saveBtn">Save and Greet</button>
 
     <div id="message"></div>
-    <p><a href="./tests.html">Run tests</a></p>
 
     <script src="script.js"></script>
 </body>
