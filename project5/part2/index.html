@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project 5 - Stock Market Visualizer</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(23, 32, 51, 0.1);
+      padding: 1.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      line-height: 1.5;
+    }
+
+    #chartDiv {
+      width: 100%;
+      min-height: 420px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Stock Market Visualizer (2017 Portfolio)</h1>
+    <p id="statusMessage">Loading portfolio data...</p>
+    <div id="chartDiv"></div>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
